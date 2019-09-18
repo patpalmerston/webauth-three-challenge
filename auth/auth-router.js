@@ -26,27 +26,27 @@ router.post('/register', (req, res) => {
 		});
 });
 
-// router.post('/login', (req, res) => {
-// 	let { username, password } = req.body;
+router.post('/login', (req, res) => {
+	let { username, password } = req.body;
 
-// 	Users.findBy({ username })
-// 		.first()
-// 		.then(user => {
-// 			if (user && bcrypt.compareSync(password, user.password)) {
-// 				const token = tokenService.generateToken(user);
+	Users.findBy({ username })
+		.first()
+		.then(user => {
+			if (user && bcrypt.compareSync(password, user.password)) {
+				const token = tokenService.generateToken(user);
 
-// 				return res
-// 					.status(200)
-// 					.json({ message: `Welcome ${user.username}!`, token });
-// 			} else {
-// 				res.status(401).json({ message: 'Invalid Credentials' });
-// 			}
-// 		})
-// 		.catch(err => {
-// 			console.log(err);
-// 			res.status(500).json({ error: 'could not find user' });
-// 		});
-// });
+				return res
+					.status(200)
+					.json({ message: `Welcome ${user.username}!`, token });
+			} else {
+				res.status(401).json({ message: 'Invalid Credentials' });
+			}
+		})
+		.catch(err => {
+			console.log(err);
+			res.status(500).json({ error: 'could not find user' });
+		});
+});
 
 // Not sure about the logout conversion yet
 
