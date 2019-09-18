@@ -1,33 +1,21 @@
-// with session and cookies
+const jwt = require('jsonwebtoken');
+const secrets = require('../config/secrets');
+
 module.exports = (req, res, next) => {
-	console.log(req.session, req.session.user)
-	if (req.session && req.session.user) {
-		
-		next();
+	const token = req.headers.authorization;
+
+	if (token) {
+		jwt.verify(token, secrets.jwtSecret, (err, decodedToken) => {
+			if (err) {
+				console.log(err);
+				res.status(401).json({ error: 'that token dont work son' });
+			} else {
+				req.decodedJwt = decodedToken;
+				console.log('decoded token', req.decodedJwt);
+				next();
+			}
+		});
 	} else {
-		res.status(401).json({ error: 'nope not allowed' });
+		res.status(500).json({ message: 'NO TOKEN' });
 	}
 };
-
-// without session and cookies
-
-// const bcrypt = require('bcryptjs');
-// const Users = require('../users/users-model');
-
-// module.exports = (req, res, next) => {
-// 	let { username, password } = req.headers;
-
-// 	Users.findBy({ username })
-// 		.first()
-// 		.then(user => {
-// 			if (user && bcrypt.compareSync(password, user.password)) {
-// 				next();
-// 			} else {
-// 				res.status(401).json({ message: 'Invalid credentials' });
-// 			}
-// 		})
-// 		.catch(err => {
-// 			console.log(err);
-// 			res.status(500).json({ error: 'incomplete credentials' });
-// 		});
-// };

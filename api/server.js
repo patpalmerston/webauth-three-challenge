@@ -10,7 +10,7 @@ const server = express();
 configureMiddleware(server)
 
 server.use('/api/auth', authRouter)
-server.use('/api/restricted/users', usersRouter);
+server.use('/api/users', usersRouter);
 
 // sanity check
 server.get('/', (req, res) => {
