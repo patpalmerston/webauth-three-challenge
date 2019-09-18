@@ -4,6 +4,7 @@ import axios from 'axios'
 
 import PrivateRoute from './components/routing/PrivateRoute'
 import Login from './components/auth/Login'
+import Register from './components/auth/Register'
 import Users from './components/users/Users'
 
 import './App.css';
@@ -19,7 +20,12 @@ function App(props) {
           path='/login'
           render={props => <Login {...props} />}
         />
+        <Route 
+          path='/register'
+          render={props => <Register {...props} />}
+        />
         <PrivateRoute path='/users' component={Users} />
+       
         
       </header>
     </div>
