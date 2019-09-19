@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 const Users = () => {
@@ -21,11 +20,9 @@ const Users = () => {
 	return (
 		<div>
 			{userList.map(user => {
-        return(
-          <h1>{user.username}</h1>
-        )
-      })}
-			HELLO
+				return (
+				<h1>{user.username}</h1>);
+			})}
 		</div>
 	);
 };
